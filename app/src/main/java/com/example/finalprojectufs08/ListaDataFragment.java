@@ -1,12 +1,29 @@
 package com.example.finalprojectufs08;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +31,11 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class ListaDataFragment extends Fragment {
+
+    UserAdapter userAdapter;
+    RecyclerView recyclerView;
+    ArrayList<User> users;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -49,6 +71,7 @@ public class ListaDataFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -58,7 +81,38 @@ public class ListaDataFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_lista_data, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_lista_data, container, false);
+        recyclerView = view.findViewById(R.id.lista_item);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        users = new ArrayList<User>();
+        userAdapter = new UserAdapter(getActivity(), this.users);
+
+        recyclerView.setAdapter(userAdapter);
+        eventChangeListener();
+        
+        return view;
+    }
+
+    private void eventChangeListener() {
+        db.collection("user")
+                // Per EventListener controllare sempre l'import
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.w("errore", "Listen failed.", e);
+                            return;
+                        }
+
+                        for (DocumentChange documentChange: value.getDocumentChanges()) {
+                            if (documentChange.getType() == DocumentChange.Type.ADDED) {
+                                users.add(documentChange.getDocument().toObject(User.class));
+                            }
+                            userAdapter.notifyDataSetChanged();
+                        }
+                    }
+                });
     }
 }
