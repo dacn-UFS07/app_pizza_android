@@ -83,13 +83,16 @@ public class ListaDataFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_lista_data, container, false);
+
         recyclerView = view.findViewById(R.id.lista_item);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         users = new ArrayList<User>();
         userAdapter = new UserAdapter(getActivity(), this.users);
 
         recyclerView.setAdapter(userAdapter);
+
         eventChangeListener();
         
         return view;

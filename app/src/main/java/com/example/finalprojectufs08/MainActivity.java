@@ -1,32 +1,13 @@
 package com.example.finalprojectufs08;
 
-import static android.content.ContentValues.TAG;
+import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Bundle;
-import android.util.Log;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-
-    private BottomNavigationView navigationBottomMenu;
-
 
 
     @Override
@@ -35,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        navigationBottomMenu =findViewById(R.id.navview);
+        BottomNavigationView navigationBottomMenu = findViewById(R.id.navview);
 
         navigationBottomMenu.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
@@ -44,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.profileIconItem:
-                    configFragmentManager(ProfileFragment.class);
+                    configFragmentManager(SignUpFragment.class);
                     break;
             }
             return true;
