@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.finalprojectufs08.databinding.ActivityMainBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -22,15 +21,15 @@ import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link SignUpFragment#newInstance} factory method to
+ * Use the {@link SignInFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SignUpFragment extends Fragment {
+public class SignInFragment extends Fragment {
 
     FirebaseAuth auth;
-    private Button signUpButton;
     private EditText email;
     private EditText pwd;
+    private Button signInButton;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -41,7 +40,7 @@ public class SignUpFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public SignUpFragment() {
+    public SignInFragment() {
         // Required empty public constructor
     }
 
@@ -51,11 +50,11 @@ public class SignUpFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment SignUpFragment.
+     * @return A new instance of fragment SignInFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static SignUpFragment newInstance(String param1, String param2) {
-        SignUpFragment fragment = new SignUpFragment();
+    public static SignInFragment newInstance(String param1, String param2) {
+        SignInFragment fragment = new SignInFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -75,14 +74,14 @@ public class SignUpFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
         auth = FirebaseAuth.getInstance();
-        signUpButton = view.findViewById(R.id.signUp_btn);
+        signInButton = view.findViewById(R.id.signUp_btn);
         email = view.findViewById(R.id.email_editText);
         pwd = view.findViewById(R.id.pwd_editText);
-        signUpButton.setOnClickListener(view1 -> {
-            auth.createUserWithEmailAndPassword(email.getText().toString(), pwd.getText().toString())
+
+        signInButton.setOnClickListener(view1 -> {
+            auth.signInWithEmailAndPassword(email.getText().toString(), pwd.getText().toString())
                     .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
@@ -92,7 +91,7 @@ public class SignUpFragment extends Fragment {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Log.d(TAG, "onFalire: "+e);
+                            Log.d(TAG, "onFailure: "+e);
                         }
                     });
         });

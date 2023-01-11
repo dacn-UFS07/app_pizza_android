@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.profileIconItem:
-                    configFragmentManager(SignUpFragment.class);
+                    configFragmentManager(SignInFragment.class);
                     break;
             }
             return true;
