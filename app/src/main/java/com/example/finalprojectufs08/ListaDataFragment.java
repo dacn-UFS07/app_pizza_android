@@ -1,10 +1,7 @@
 package com.example.finalprojectufs08;
 
-import static android.content.ContentValues.TAG;
-
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -30,12 +26,13 @@ import java.util.ArrayList;
  * Use the {@link ListaDataFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ListaDataFragment extends Fragment {
+public class ListaDataFragment extends Fragment implements RecyclerViewInterface{
 
     UserAdapter userAdapter;
     RecyclerView recyclerView;
     ArrayList<User> users;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -89,7 +86,7 @@ public class ListaDataFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         users = new ArrayList<User>();
-        userAdapter = new UserAdapter(getActivity(), this.users);
+        userAdapter = new UserAdapter(getActivity(),  this.users, this);
 
         recyclerView.setAdapter(userAdapter);
 
@@ -117,5 +114,10 @@ public class ListaDataFragment extends Fragment {
                         }
                     }
                 });
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        System.out.println(users.get(position).toString());
     }
 }

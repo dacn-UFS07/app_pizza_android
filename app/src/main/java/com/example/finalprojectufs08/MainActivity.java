@@ -1,5 +1,12 @@
 package com.example.finalprojectufs08;
 
+/**
+ * TODO
+ * - visualizzare dettaglio pizze
+ * - dopo login mandare su pagina profilo
+ * - visualizzare dati utente in pagina profilo
+ */
+
 import android.content.Intent;
 import android.os.Bundle;
 
