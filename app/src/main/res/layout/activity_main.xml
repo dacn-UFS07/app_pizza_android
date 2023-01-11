@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <!--LIST DATA FRAGMENT-->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainer"
         android:layout_width="0dp"
@@ -17,7 +18,7 @@
         android:name="com.example.finalprojectufs08.ListaDataFragment"
         tools:layout="@layout/fragment_lista_data"
         />
-
+    <!--BOTTOM MENU-->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navview"
         android:layout_width="match_parent"
