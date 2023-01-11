@@ -1,20 +1,24 @@
 package com.example.finalprojectufs08;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
+    FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        auth = FirebaseAuth.getInstance();
 
         BottomNavigationView navigationBottomMenu = findViewById(R.id.navview);
 
@@ -25,7 +29,12 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.profileIconItem:
-                    configFragmentManager(SignInFragment.class);
+                    if(auth.getCurrentUser() != null){
+                        configFragmentManager(ProfileFragment.class);
+
+                    } else {
+                        configFragmentManager(SignInFragment.class);
+                    }
                     break;
             }
             return true;

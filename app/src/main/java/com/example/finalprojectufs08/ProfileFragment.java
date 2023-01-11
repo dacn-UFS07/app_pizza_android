@@ -3,10 +3,14 @@ package com.example.finalprojectufs08;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +18,9 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class ProfileFragment extends Fragment {
+
+    private FirebaseAuth auth;
+    private Button signOutButton;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,7 +65,24 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        auth = FirebaseAuth.getInstance();
+        signOutButton = view.findViewById(R.id.signOut_btn);
+        signOutButton.setOnClickListener(view1 -> {
+            System.out.println("quiii");
+            auth.signOut();
+            configFragmentManager(SignInFragment.class);
+        });
+
+        return view;
+    }
+
+    private void configFragmentManager(Class fragmentClass) {
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, fragmentClass, null)
+                .setReorderingAllowed(true)
+                .addToBackStack("name")
+                .commit();
     }
 }

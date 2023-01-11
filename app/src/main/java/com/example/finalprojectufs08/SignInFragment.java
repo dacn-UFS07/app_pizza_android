@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -85,7 +86,7 @@ public class SignInFragment extends Fragment {
                     .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
-                            Log.d(TAG, "onSuccess: true");
+                            configFragmentManager(ProfileFragment.class);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -96,5 +97,14 @@ public class SignInFragment extends Fragment {
                     });
         });
         return view;
+    }
+
+    private void configFragmentManager(Class fragmentClass) {
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, fragmentClass, null)
+                .setReorderingAllowed(true)
+                .addToBackStack("name")
+                .commit();
     }
 }
