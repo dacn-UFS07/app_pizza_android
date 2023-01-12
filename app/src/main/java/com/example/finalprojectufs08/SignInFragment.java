@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +32,7 @@ public class SignInFragment extends Fragment {
     private EditText email;
     private EditText pwd;
     private Button signInButton;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -75,11 +77,11 @@ public class SignInFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
+        View view = inflater.inflate(R.layout.fragment_sign_in, container, false);
         auth = FirebaseAuth.getInstance();
-        signInButton = view.findViewById(R.id.signUp_btn);
-        email = view.findViewById(R.id.email_editText);
-        pwd = view.findViewById(R.id.pwd_editText);
+        signInButton = view.findViewById(R.id.signIn_btn);
+        email = view.findViewById(R.id.email_signIn_editText);
+        pwd = view.findViewById(R.id.pwd_signIn_editText);
 
         signInButton.setOnClickListener(view1 -> {
             auth.signInWithEmailAndPassword(email.getText().toString(), pwd.getText().toString())
@@ -95,6 +97,7 @@ public class SignInFragment extends Fragment {
                             Log.d(TAG, "onFailure: "+e);
                         }
                     });
+
         });
         return view;
     }

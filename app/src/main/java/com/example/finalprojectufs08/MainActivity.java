@@ -2,8 +2,6 @@ package com.example.finalprojectufs08;
 
 /**
  * TODO
- * - visualizzare dettaglio pizze
- * - dopo login mandare su pagina profilo
  * - visualizzare dati utente in pagina profilo
  */
 
@@ -40,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
                         configFragmentManager(ProfileFragment.class);
 
                     } else {
-                        configFragmentManager(SignInFragment.class);
+                        configFragmentManager(SignUpFragment.class);
                     }
                     break;
             }

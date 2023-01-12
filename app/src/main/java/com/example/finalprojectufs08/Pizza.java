@@ -1,47 +1,49 @@
 package com.example.finalprojectufs08;
 
-public class User {
 
-    String firstName, lastName, gender;
+public class Pizza {
 
-    public User() {}
+    String name;
+    Integer prezzo;
+    String ingredienti;
 
-    public User(String firstName, String lastName, String gender) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.gender = gender;
+    public Pizza() {}
+
+    public Pizza(String name, Integer prezzo, String ingredienti) {
+        this.name = name;
+        this.prezzo = prezzo;
+        this.ingredienti = ingredienti;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getIngredienti() {
+        return ingredienti;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setIngredienti(String ingredienti) {
+        this.ingredienti = ingredienti;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getName() {
+        return name;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getGender() {
-        return gender;
+    public Integer getPrezzo() {
+        return prezzo;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setPrezzo(Integer prezzo) {
+        this.prezzo = prezzo;
     }
 
     @Override
     public String toString() {
-        return "User{" +
-                "firstName='" + firstName + '\'' +
-                ", lastname='" + lastName + '\'' +
-                ", gender='" + gender + '\'' +
+        return "Pizza{" +
+                "name='" + name + '\'' +
+                ", prezzo='" + prezzo + '\'' +
                 '}';
     }
 }

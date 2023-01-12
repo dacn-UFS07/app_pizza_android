@@ -17,7 +17,7 @@
         android:layout_marginBottom="10dp">
 
         <TextView
-            android:id="@+id/firstname"
+            android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
@@ -27,8 +27,8 @@
             tools:text="firstname" />
 
         <TextView
-            android:id="@+id/lastname"
-            android:layout_below="@+id/firstname"
+            android:id="@+id/ingredienti"
+            android:layout_below="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
@@ -38,8 +38,8 @@
             tools:text="lastname" />
 
         <TextView
-            android:id="@+id/gender"
-            android:layout_below="@+id/lastname"
+            android:id="@+id/prezzo"
+            android:layout_below="@+id/ingredienti"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"

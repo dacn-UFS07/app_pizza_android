@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,11 +15,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.finalprojectufs08.databinding.ActivityMainBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +32,8 @@ public class SignUpFragment extends Fragment {
     private Button signUpButton;
     private EditText email;
     private EditText pwd;
+    private EditText name;
+    FirebaseFirestore db;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -77,16 +80,23 @@ public class SignUpFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
+
         auth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+
         signUpButton = view.findViewById(R.id.signUp_btn);
-        email = view.findViewById(R.id.email_editText);
-        pwd = view.findViewById(R.id.pwd_editText);
+        email = view.findViewById(R.id.email_signIn_editText);
+        pwd = view.findViewById(R.id.pwd_signIn_editText);
+        name = view.findViewById(R.id.name_editText);
+
         signUpButton.setOnClickListener(view1 -> {
             auth.createUserWithEmailAndPassword(email.getText().toString(), pwd.getText().toString())
                     .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
-                            Log.d(TAG, "onSuccess: true");
+                            db.collection("user")
+                                    .document(auth.getUid())
+                                    .set(new User(name.getText().toString(), email.getText().toString()));
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -96,6 +106,21 @@ public class SignUpFragment extends Fragment {
                         }
                     });
         });
+
+        Button  goToSignInFragmentButton = view.findViewById(R.id.ccc);
+        goToSignInFragmentButton.setOnClickListener(view1 -> {
+            configFragmentManager(SignInFragment.class);
+        });
+
         return view;
+    }
+
+    private void configFragmentManager(Class fragmentClass) {
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, fragmentClass, null)
+                .setReorderingAllowed(true)
+                .addToBackStack("name")
+                .commit();
     }
 }

@@ -69,7 +69,6 @@ public class ProfileFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
         signOutButton = view.findViewById(R.id.signOut_btn);
         signOutButton.setOnClickListener(view1 -> {
-            System.out.println("quiii");
             auth.signOut();
             configFragmentManager(SignInFragment.class);
         });

@@ -28,9 +28,9 @@ import java.util.ArrayList;
  */
 public class ListaDataFragment extends Fragment implements RecyclerViewInterface{
 
-    UserAdapter userAdapter;
+    PizzaAdapter pizzaAdapter;
     RecyclerView recyclerView;
-    ArrayList<User> users;
+    ArrayList<Pizza> pizzas;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
@@ -85,10 +85,10 @@ public class ListaDataFragment extends Fragment implements RecyclerViewInterface
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        users = new ArrayList<User>();
-        userAdapter = new UserAdapter(getActivity(),  this.users, this);
+        pizzas = new ArrayList<Pizza>();
+        pizzaAdapter = new PizzaAdapter(getActivity(),  this.pizzas, this);
 
-        recyclerView.setAdapter(userAdapter);
+        recyclerView.setAdapter(pizzaAdapter);
 
         eventChangeListener();
         
@@ -96,7 +96,7 @@ public class ListaDataFragment extends Fragment implements RecyclerViewInterface
     }
 
     private void eventChangeListener() {
-        db.collection("user")
+        db.collection("pizza")
                 // Per EventListener controllare sempre l'import
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
@@ -108,9 +108,9 @@ public class ListaDataFragment extends Fragment implements RecyclerViewInterface
 
                         for (DocumentChange documentChange: value.getDocumentChanges()) {
                             if (documentChange.getType() == DocumentChange.Type.ADDED) {
-                                users.add(documentChange.getDocument().toObject(User.class));
+                                pizzas.add(documentChange.getDocument().toObject(Pizza.class));
                             }
-                            userAdapter.notifyDataSetChanged();
+                            pizzaAdapter.notifyDataSetChanged();
                         }
                     }
                 });
@@ -118,6 +118,6 @@ public class ListaDataFragment extends Fragment implements RecyclerViewInterface
 
     @Override
     public void onItemClick(int position) {
-        System.out.println(users.get(position).toString());
+        System.out.println(pizzas.get(position).toString());
     }
 }
