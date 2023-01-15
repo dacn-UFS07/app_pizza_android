@@ -1,4 +1,4 @@
-package com.example.finalprojectufs08;
+package com.example.finalprojectufs08.fragments;
 
 import static android.content.ContentValues.TAG;
 
@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.finalprojectufs08.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;

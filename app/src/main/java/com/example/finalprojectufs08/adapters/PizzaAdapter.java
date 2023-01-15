@@ -1,4 +1,4 @@
-package com.example.finalprojectufs08;
+package com.example.finalprojectufs08.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.finalprojectufs08.models.Pizza;
+import com.example.finalprojectufs08.R;
+import com.example.finalprojectufs08.interfaces.RecyclerViewInterface;
 
 import java.util.ArrayList;
 
@@ -35,8 +39,8 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
     public void onBindViewHolder(@NonNull PizzaViewHolder holder, int position) {
         Pizza pizza = pizzas.get(position);
         holder.name.setText(pizza.getName());
-        holder.ingredienti.setText(pizza.ingredienti);
-        holder.prezzo.setText(String.valueOf(pizza.prezzo));
+        holder.ingredienti.setText(pizza.getIngredienti());
+        holder.prezzo.setText(String.valueOf(pizza.getPrezzo()));
     }
 
     @Override

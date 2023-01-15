@@ -1,16 +1,21 @@
 package com.example.finalprojectufs08;
 
-/**
- * TODO
- * - visualizzare dati utente in pagina profilo
+/*
+TODO:
+- visualizzare dati nel fragment profilo [X]
+- activity dettaglio
+- immagine pizza
+- mappa (?)
  */
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.finalprojectufs08.fragments.ListaDataFragment;
+import com.example.finalprojectufs08.fragments.ProfileFragment;
+import com.example.finalprojectufs08.fragments.SignUpFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 

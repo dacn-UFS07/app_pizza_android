@@ -1,4 +1,4 @@
-package com.example.finalprojectufs08;
+package com.example.finalprojectufs08.fragments;
 
 import android.os.Bundle;
 
@@ -12,6 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.finalprojectufs08.R;
+import com.example.finalprojectufs08.interfaces.RecyclerViewInterface;
+import com.example.finalprojectufs08.adapters.PizzaAdapter;
+import com.example.finalprojectufs08.models.Pizza;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -26,7 +30,7 @@ import java.util.ArrayList;
  * Use the {@link ListaDataFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ListaDataFragment extends Fragment implements RecyclerViewInterface{
+public class ListaDataFragment extends Fragment implements RecyclerViewInterface {
 
     PizzaAdapter pizzaAdapter;
     RecyclerView recyclerView;

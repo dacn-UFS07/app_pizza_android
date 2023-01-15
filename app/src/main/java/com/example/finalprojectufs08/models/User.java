@@ -1,4 +1,4 @@
-package com.example.finalprojectufs08;
+package com.example.finalprojectufs08.models;
 
 public class User {
     private String name;

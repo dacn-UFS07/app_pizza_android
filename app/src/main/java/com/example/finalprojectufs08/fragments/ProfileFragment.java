@@ -1,16 +1,27 @@
-package com.example.finalprojectufs08;
+package com.example.finalprojectufs08.fragments;
+
+import static android.content.ContentValues.TAG;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
+import com.example.finalprojectufs08.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,7 +31,10 @@ import com.google.firebase.auth.FirebaseAuth;
 public class ProfileFragment extends Fragment {
 
     private FirebaseAuth auth;
+    FirebaseFirestore db;
     private Button signOutButton;
+    private TextView username;
+    private TextView email;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -68,13 +82,41 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         auth = FirebaseAuth.getInstance();
         signOutButton = view.findViewById(R.id.signOut_btn);
+        username = view.findViewById(R.id.userName_text);
+        email = view.findViewById(R.id.userEmail_text);
+        db = FirebaseFirestore.getInstance();
+
+        getEmail();
+
         signOutButton.setOnClickListener(view1 -> {
             auth.signOut();
             configFragmentManager(SignInFragment.class);
         });
 
+
+
         return view;
     }
+
+    private void getEmail() {
+        DocumentReference reference =  db.collection("user").document(auth.getCurrentUser().getUid());
+        reference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    String ciao = (String) document.get("email");
+                    String ciao2 = (String) document.get("name");
+                    email.setText(ciao);
+                    username.setText(ciao2);
+
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+    }
+
 
     private void configFragmentManager(Class fragmentClass) {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

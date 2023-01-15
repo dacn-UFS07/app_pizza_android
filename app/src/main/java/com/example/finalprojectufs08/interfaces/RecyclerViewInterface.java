@@ -1,4 +1,4 @@
-package com.example.finalprojectufs08;
+package com.example.finalprojectufs08.interfaces;
 
 public interface RecyclerViewInterface {
     void onItemClick(int position);
