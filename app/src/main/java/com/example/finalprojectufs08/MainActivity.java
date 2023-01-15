@@ -3,7 +3,7 @@ package com.example.finalprojectufs08;
 /*
 TODO:
 - visualizzare dati nel fragment profilo [X]
-- activity dettaglio
+- activity dettaglio [x]
 - immagine pizza
 - mappa (?)
  */

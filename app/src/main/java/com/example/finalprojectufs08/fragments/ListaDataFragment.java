@@ -1,5 +1,6 @@
 package com.example.finalprojectufs08.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.finalprojectufs08.Dettaglio;
 import com.example.finalprojectufs08.R;
 import com.example.finalprojectufs08.interfaces.RecyclerViewInterface;
 import com.example.finalprojectufs08.adapters.PizzaAdapter;
@@ -122,6 +124,13 @@ public class ListaDataFragment extends Fragment implements RecyclerViewInterface
 
     @Override
     public void onItemClick(int position) {
-        System.out.println(pizzas.get(position).toString());
+//        System.out.println(pizzas.get(position).toString());
+        Intent intent = new Intent(getActivity(), Dettaglio.class);
+
+        intent.putExtra("nome", pizzas.get(position).getName());
+        intent.putExtra("ingredienti", pizzas.get(position).getIngredienti());
+        intent.putExtra("prezzo", pizzas.get(position).getPrezzo());
+
+        startActivity(intent);
     }
 }
